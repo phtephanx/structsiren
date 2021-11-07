@@ -21,7 +21,7 @@ def get_meshgrid(
     num_dims = len(side_lengths)
     tensors = [torch.linspace(-1, 1, steps=lengths)
                for lengths in side_lengths]
-    mgrid = torch.stack(torch.meshgrid(*tensors), dim=-1)
+    mgrid = torch.stack(torch.meshgrid(*tensors, indexing='ij'), dim=-1)
     return mgrid.reshape(-1, num_dims)
 
 
