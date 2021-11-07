@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 from structsiren.models import (
     EfficientNetSirenSAE,
-    StructSirenSAE
+    SirenSAE
 )
 from structsiren.datasets import (
     load_3dshapes,
@@ -34,7 +34,7 @@ def safe_path(path):
 
 
 def train_for_one_epoch(
-        model: StructSirenSAE,
+        model: SirenSAE,
         train_loader: torch.utils.data.DataLoader,
         optimizer,
         criterion,
@@ -67,7 +67,7 @@ def train_for_one_epoch(
 @torch.no_grad()
 def evaluate_on_loader(
         model: torch.nn.Module,
-        loader: torch.data.utils.DataLoader,
+        loader: torch.utils.data.DataLoader,
         *,
         device: typing.Union[str, torch.device] = 'cpu'
 ):
@@ -225,17 +225,17 @@ def main(args: argparse.Namespace):
     args.w_dim = 64
     args.num_channels = 3
 
-    model = EfficientNetSirenSAE(
+    model = EfficientNetSirenSAE.build(
         h_dim=args.h_dim,
         w_dim=args.w_dim,
         num_channels=args.num_channels,
-        num_factors=6,
-        dim_per_factor=2,
+        num_codes=6,
+        size_per_code=2,
         encoder_hidden_dims=[64],
         siren_hidden_dim=128,
         sigmoid=True,
         name='efficientnet-b0',
-        pretrained=True
+        pretrained_encoder=True
     )
 
     torch.save(model, os.path.join(output_folder, 'model.pth.tar'))
