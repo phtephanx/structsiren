@@ -4,6 +4,7 @@ import os
 import audeer
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image
 from pytorch_fid.fid_score import calculate_fid_given_paths
 import torch
 
@@ -15,10 +16,9 @@ device_default = 'cpu'
 def plot_img(a: np.ndarray, dst: str, count: int = 0):
     r"""Plot image and save to `dst`."""
     a = np.clip(a, 0, 1).astype('float32')
-    fig = plt.figure()
-    plt.imshow(a, cmap='Greys_r', interpolation='nearest')
-    plt.savefig(os.path.join(dst, f'{count}.png'))
-    plt.close(fig)
+    a = (a * 255).astype(np.uint8)
+    im = Image.fromarray(a)
+    im.save(os.path.join(dst, f'{count}.png'))
 
 
 def main(args: argparse.Namespace):
