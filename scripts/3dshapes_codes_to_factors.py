@@ -14,7 +14,7 @@ from structsiren.datasets import (
     Reconstruction,
     load_3dshapes
 )
-import structsiren.datasets.shapes3d
+from structsiren.datasets import shapes3d
 
 
 SHAPES3D_COLORS = [
