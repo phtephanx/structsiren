@@ -392,9 +392,4 @@ if __name__ == '__main__':
              f'Default: {checkpoint_frequency_default}'
     )
 
-    parser.add_argument(
-        '--plot-img',
-        action='store_true'
-    )
-
     main(parser.parse_args())
