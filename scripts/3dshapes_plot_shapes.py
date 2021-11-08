@@ -44,7 +44,7 @@ def main(args: argparse.Namespace):
         task_description='Plot predictions'
     )
 
-    params = [([targets[i], img_p, i], {}) for i in range(targets.shape[0])]
+    params = [([targets[i], img_t, i], {}) for i in range(targets.shape[0])]
     audeer.run_tasks(
         task_func=plot_img,
         params=params,
