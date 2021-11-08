@@ -17,6 +17,7 @@ def plot_img(a: np.ndarray, dst: str, count: int = 0):
     r"""Plot image and save to `dst`."""
     a = np.clip(a, 0, 1).astype('float32')
     a = (a * 255).astype(np.uint8)
+    a = a.transpose((1, 2, 0))
     im = Image.fromarray(a)
     im.save(os.path.join(dst, f'{count}.png'))
 
