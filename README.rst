@@ -24,8 +24,8 @@ prior distributions on its latent codes,
 :math:`S_i` are not statistically independent but hierarchically dependent.
 Instead, the set of noises :math:`U_i`, which are represented by the latent
 codes :math:`q` of the `SSAE`, is assumed to be jointly independent. To emulate this
-structure, the
-latent codes :math:`q_k` are injected one after another into layers of the decoder.
+structure, the individual
+latent code vectors :math:`q_k` are injected one after another into layers of the decoder.
 
 
 
