@@ -1,9 +1,11 @@
 Structural Siren
 ================
 
-.. image:: images/test_set.png
+.. figure:: images/test_set.png
    :width: 600
    :alt: SSAE on test set after 60 epochs of training
+   
+   SSAE on test set after 60 epochs of training
 
 Introduction
 ------------
@@ -27,10 +29,10 @@ latent codes are injected one after another into layers of the decoder.
 
 
 
-.. image:: images/decoder.png
+.. figure:: images/decoder.png
    :width: 600
-   :alt: decoder
-
+   :alt: structural decoder
+   
 Structural Causal Model
 -----------------------
 The SCM of `SSAE` has the following form:
