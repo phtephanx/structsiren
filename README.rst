@@ -67,7 +67,8 @@ Visual Probing
 
 The latent codes of the test set are visually probed for their disentanglement
 by coloring them dependent on the configuration of the ground truth factors
-of variation.
+of variation. For instance, code vector :math:`q_1` modulates the color of the wall
+and code vector :math:`q_2` the color of the floor.
 
 .. image:: images/codes-to-factors.png
    :width: 800
