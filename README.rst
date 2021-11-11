@@ -62,6 +62,20 @@ Experiment
 .. _3dshapes: https://github.com/deepmind/3d-shapes
 .. _EfficientNet: https://github.com/lukemelas/EfficientNet-PyTorch
 
+
+Disentanglement Metrics
+-----------------------
+
++-----+--------+
+|     | SSAE12 |
++-----+--------+
+| FID |        |
++-----+--------+
+|     |        |
++-----+--------+
+|     |        |
++-----+--------+
+
 Visual Probing
 --------------
 
