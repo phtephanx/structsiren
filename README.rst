@@ -23,9 +23,9 @@ prior distributions on its latent codes,
 [LEB21]_ allude to the fact that in an SCM the endogenous variables
 :math:`S_i` are not statistically independent but hierarchically dependent.
 Instead, the set of noises :math:`U_i`, which are represented by the latent
-codes of the `SSAE`, is assumed to be jointly independent. To emulate this
+codes :math:`q` of the `SSAE`, is assumed to be jointly independent. To emulate this
 structure, the
-latent codes are injected one after another into layers of the decoder.
+latent codes :math:`q_k` are injected one after another into layers of the decoder.
 
 
 
