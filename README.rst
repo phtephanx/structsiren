@@ -9,7 +9,7 @@ Introduction
 ------------
 Structural Siren Autoencoders (`SSAE`) strive to reveal factors of
 variation in generative processes by structural disentanglement with Siren
-networks.
+networks, proposed by [SIT19]_.
 Unlike VAEs, which achieve regularity on the latent space by enforcing
 prior distributions on its latent codes,
 `SSAE`s embed a hierarchical structural causal model (SCM) into their decoder:
@@ -100,14 +100,5 @@ Scripts
 References
 ----------
 
-.. [LEB21]
-   ```
-   @misc{leeb2021structure,
-   title={Structure by Architecture: Disentangled Representations without Regularization}, 
-   author={Felix Leeb and Guilia Lanzillotta and Yashas Annadani and Michel Besserve and Stefan Bauer and Bernhard Schölkopf},
-   year={2021},
-   eprint={2006.07796},
-   archivePrefix={arXiv},
-   primaryClass={cs.LG}
-   }
-   ```
+.. [SIT19] V\. Sitzmann, J. N. P. Martel, A. W. Bergman, D. B. Lindell, en G. Wetzstein, “Implicit Neural Representations with Periodic Activation Functions”, in arXiv, 2020.
+.. [LEB21] F\. Leeb, G. Lanzillotta, Y. Annadani, M. Besserve, S. Bauer, en B. Schölkopf, “Structure by Architecture: Disentangled Representations without Regularization”, arXiv [cs.LG]. 2021.
