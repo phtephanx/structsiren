@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you find our work useful in your research, please cite:"
+authors:
+  - family-names: Huber
+    given-names: Stephan
+    orcid: https://orcid.org/0000-0001-7611-6649
+title: "Structural Siren"
+version: 1.0.0
+date-released: 2021-11-12
