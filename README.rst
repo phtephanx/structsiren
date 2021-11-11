@@ -3,7 +3,7 @@ Structural Siren
 
 .. image:: images/test_set.png
    :width: 600
-   :alt: SSAE on test set after 60 epochs training
+   :alt: SSAE on test set after 60 epochs of training
 
 Introduction
 ------------
@@ -18,12 +18,14 @@ prior distributions on its latent codes,
 
     S_i := f_i(PA_i, U_i), (i=1, ..., n)
 
-Leeb et. al allude to the fact that in an SCM the endogenous variables
+[LEB21]_ allude to the fact that in an SCM the endogenous variables
 :math:`S_i` are not statistically independent but hierarchically dependent.
 Instead, the set of noises :math:`U_i`, which are represented by the latent
 codes of the `SSAE`, is assumed to be jointly independent. To emulate this
 structure, the
 latent codes are injected one after another into layers of the decoder.
+
+
 
 .. image:: images/decoder.png
    :width: 600
@@ -48,13 +50,14 @@ activations.
 The advantage of using sinusoidal nonlinearities is to preserve second
 and higher-order derivatives during reconstruction, compared to e.g. ReLU.
 
+
 Experiment
 ----------
 
 * data: 3dshapes_
 * 70-10-20 train-dev-test split
 * encoder: pre-trained `EfficientNet`_ "b0"
-* decoder: 6-layer Siren with 6 :math:`q_k \in \!R²`
+* decoder: 6-layer Siren with 6 :math:`q_k element R²`
 
 .. _3dshapes: https://github.com/deepmind/3d-shapes
 .. _EfficientNet: https://github.com/lukemelas/EfficientNet-PyTorch
@@ -83,13 +86,28 @@ To install `structsiren`, run:
 Scripts
 -------
 
-1. `3dshapes_prepare_data.py`: prepare `3d-shapes` data
-2. `3dshapes_train.py`: train Structural Siren with pre-trained `EfficientNet`
-   encoder
-3. `3dshapes_plot_shapes.py`: plot reconstructions for test data with
++ `3dshapes_prepare_data.py`: prepare `3d-shapes` data
++ `3dshapes_train.py`: train Structural Siren with pre-trained `EfficientNet`
+  encoder
++ `3dshapes_plot_shapes.py`: plot reconstructions for test data with
+  pre-trained model
++  `3dshapes_collect_factors.py`: collect codes for train-dev-test data with
    pre-trained model
-4. `3dshapes_collect_factors.py`: collect codes for train-dev-test data with
-   pre-trained model
-5. `3dshapes_measure_disentanglement.py`
-6. `3dshapes_codes_to_factors.py`: create scatter plots of codes and colorize
-   with manifestations of different ground truth factors
++ `3dshapes_measure_disentanglement.py`
++ `3dshapes_codes_to_factors.py`: create scatter plots of codes and colorize
+  with manifestations of different ground truth factors
+  
+References
+----------
+
+.. [LEB21]
+   ```
+   @misc{leeb2021structure,
+   title={Structure by Architecture: Disentangled Representations without Regularization}, 
+   author={Felix Leeb and Guilia Lanzillotta and Yashas Annadani and Michel Besserve and Stefan Bauer and Bernhard Schölkopf},
+   year={2021},
+   eprint={2006.07796},
+   archivePrefix={arXiv},
+   primaryClass={cs.LG}
+   }
+   ```
