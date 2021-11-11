@@ -16,7 +16,7 @@ prior distributions on its latent codes,
 
 .. math::
 
-    S_i := f_i(PA_i, U_i), \ \ \ (i=1, ..., n)
+    S_i := f_i(PA_i, U_i), (i=1, ..., n)
 
 Leeb et. al allude to the fact that in an SCM the endogenous variables
 :math:`S_i` are not statistically independent but hierarchically dependent.
@@ -36,11 +36,8 @@ The SCM of `SSAE` has the following form:
 .. math::
 
     h_1 = \alpha_1 * sin(w_1 * h_0 + b_1) + \beta_1
-
     h_2 = \alpha_2 * sin(w_2 * h_1 + b_2) + \beta_2
-
     ...
-
     h_K = \alpha_K * sin(w_K * h_{K-1} + b_K) + \beta_K
 
 
@@ -70,7 +67,7 @@ by coloring them dependent on the configuration of the ground truth factors
 of variation.
 
 .. image:: images/codes-to-factors.png
-   :width: 600
+   :width: 800
    :alt: latent codes of test set colored with ground truth configuration
 
 
