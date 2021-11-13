@@ -11,8 +11,8 @@ Introduction
 ------------
 Structural Siren Autoencoders (`SSAE`) strive to reveal factors of
 variation in generative processes by structural disentanglement. 
-They are based on Structural Autoencoders (`SAE`), introduced by [LEB21]_, and 
-replace the upsampling decoder with Siren networks, proposed by [SIT19]_.
+They are based on Structural Autoencoders (`SAE`), introduced by [LEB21]_, but 
+replace their upsampling decoder a with Siren network, proposed by [SIT19]_.
 Unlike VAEs, which achieve regularity on the latent space by enforcing
 prior distributions on its latent codes,
 `SSAEs` embed a hierarchical structural causal model (SCM) into their decoder:
@@ -40,18 +40,18 @@ The SCM of `SSAE` has the following form:
 
 .. math::
 
-    h_1 = \alpha_1 * sin(w_1 * h_0 + b_1) + \beta_1
-    h_2 = \alpha_2 * sin(w_2 * h_1 + b_2) + \beta_2
+    h_1 = alpha_1 * sin(w_1 * h_0 + b_1) + beta_1
+    h_2 = alpha_2 * sin(w_2 * h_1 + b_2) + beta_2
     ...
-    h_K = \alpha_K * sin(w_K * h_{K-1} + b_K) + \beta_K
+    h_K = alpha_K * sin(w_K * h_{K-1} + b_K) + beta_K
 
 
-where :math:`\alpha_k` and :math:`\beta_k` originating from latent code
+where :math:`alpha_k` and :math:`beta_k` originating from latent code
 :math:`q_k` are subsequently injected into the decoder and modulate its
 activations. The advantage of using sinusoidal nonlinearities is to preserve second
 and higher-order derivatives during reconstruction, compared to e.g. ReLU. 
-It is worthwhile noting that :math:`\alpha_k` and :math:`\beta_k` 
-do not control :math:`\h_k` pixelwise but channelwise. [MEH21]_ apply the same
+It is worthwhile noting that :math:`alpha_k` and :math:`beta_k` 
+do not control :math:`h_k` pixelwise but channelwise. [MEH21]_ apply the same
 modulation without splitting up the latent vector into the individual codes and 
 injecting them subsequently according to causal ordering.
 
