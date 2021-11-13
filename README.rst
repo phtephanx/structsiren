@@ -48,11 +48,12 @@ The SCM of `SSAE` has the following form:
 
 where :math:`\alpha_k` and :math:`\beta_k` originating from latent code
 :math:`q_k` are subsequently injected into the decoder and modulate its
-activations. It is worthwhile noting that :math:`\alpha_k` and :math:`\beta_k` 
-do not modulate :math:`\h_k` pixelwise but channelwise.
-
-The advantage of using sinusoidal nonlinearities is to preserve second
-and higher-order derivatives during reconstruction, compared to e.g. ReLU.
+activations. The advantage of using sinusoidal nonlinearities is to preserve second
+and higher-order derivatives during reconstruction, compared to e.g. ReLU. 
+It is worthwhile noting that :math:`\alpha_k` and :math:`\beta_k` 
+do not control :math:`\h_k` pixelwise but channelwise. [MEH21]_ apply the same
+modulation without splitting up the latent vector into the individual codes and 
+injecting them subsequently according to causal ordering.
 
 
 Experiment
@@ -122,3 +123,4 @@ References
 
 .. [SIT19] V\. Sitzmann, J. N. P. Martel, A. W. Bergman, D. B. Lindell, en G. Wetzstein, “Implicit Neural Representations with Periodic Activation Functions”, in arXiv, 2020.
 .. [LEB21] F\. Leeb, G. Lanzillotta, Y. Annadani, M. Besserve, S. Bauer, en B. Schölkopf, “Structure by Architecture: Disentangled Representations without Regularization”, arXiv [cs.LG]. 2021.
+.. [MEH21] I\. Mehta, M. Gharbi, C. Barnes, E. Shechtman, R. Ramamoorthi, en M. Chandraker, “Modulated Periodic Activations for Generalizable Local Functional Representations”, arXiv [cs.CV]. 2021.
