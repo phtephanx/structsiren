@@ -11,7 +11,8 @@ Introduction
 ------------
 Structural Siren Autoencoders (`SSAE`) strive to reveal factors of
 variation in generative processes by structural disentanglement with Siren
-networks, proposed by [SIT19]_.
+networks, proposed by [SIT19]_. They are based on Structural Autoencoders
+introduced by [LEB21]_.
 Unlike VAEs, which achieve regularity on the latent space by enforcing
 prior distributions on its latent codes,
 `SSAEs` embed a hierarchical structural causal model (SCM) into their decoder:
@@ -73,7 +74,7 @@ Disentanglement Metrics
 +-----+--------+
 | FID |        |
 +-----+--------+
-|     |        |
+| DCI |        |
 +-----+--------+
 |     |        |
 +-----+--------+
