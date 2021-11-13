@@ -61,13 +61,14 @@ Experiment
 * 70-10-20 train-dev-test split
 * encoder: pre-trained `EfficientNet`_ "b0"
 * decoder: 6-layer Siren with 6 :math:`q_k element R²`
+* epochs: 60
 
 .. _3dshapes: https://github.com/deepmind/3d-shapes
 .. _EfficientNet: https://github.com/lukemelas/EfficientNet-PyTorch
 
 
 Disentanglement Metrics
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 +-----+--------+
 |     | SSAE12 |
@@ -80,7 +81,7 @@ Disentanglement Metrics
 +-----+--------+
 
 Visual Probing
---------------
+~~~~~~~~~~~~~~
 
 The latent codes of the test set are visually probed for their disentanglement
 by coloring them dependent on the configuration of the ground truth factors
