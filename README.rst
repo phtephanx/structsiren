@@ -48,7 +48,8 @@ The SCM of `SSAE` has the following form:
 
 where :math:`\alpha_k` and :math:`\beta_k` originating from latent code
 :math:`q_k` are subsequently injected into the decoder and modulate its
-activations.
+activations. It is worthwhile noting that :math:`\alpha_k` and :math:`\beta_k` 
+do not modulate :math:`\h_k` pixelwise but channelwise.
 
 The advantage of using sinusoidal nonlinearities is to preserve second
 and higher-order derivatives during reconstruction, compared to e.g. ReLU.
