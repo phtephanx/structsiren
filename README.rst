@@ -69,11 +69,13 @@ Experiment
 .. _EfficientNet: https://github.com/lukemelas/EfficientNet-PyTorch
 
 
-Disentanglement Metrics
-~~~~~~~~~~~~~~~~~~~~~~~
+Reconstruction & Disentanglement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +-------+--------+
 |       | SSAE12 |
++-------+--------+
+| FID   | 12.099 |
 +-------+--------+
 | DCI-d | 0.687  |
 +-------+--------+
