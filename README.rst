@@ -11,7 +11,7 @@ Introduction
 ------------
 Structural Siren Autoencoders (`SSAE`) strive to reveal factors of
 variation in generative processes by structural disentanglement with Siren
-networks, proposed by [SIT19]_. They are based on Structural Autoencoders
+networks, proposed by [SIT19]_. They are based on Structural Autoencoders (`SAE`)
 introduced by [LEB21]_.
 Unlike VAEs, which achieve regularity on the latent space by enforcing
 prior distributions on its latent codes,
