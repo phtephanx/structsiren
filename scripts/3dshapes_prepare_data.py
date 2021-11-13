@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-from structsiren.shapes3d import URL, H5, SERIES
+from structsiren.datasets.shapes3d import URL, H5, SERIES
 
 
 def _download(url: str, filename: str):
@@ -54,16 +54,16 @@ def _cache_3d_shapes(
     if not os.path.exists(cache_root):
         os.mkdir(cache_root)
 
-    if h5 is None:
+    if not h5:
         h5 = os.path.abspath(os.path.expanduser(H5))
 
-        if not os.path.exists(h5):
-            if not download:
-                raise RuntimeError(
-                    f'h5 file not available at `{h5}`, '
-                    f'yet, download disabled.')
+    if not os.path.exists(h5):
+        if not download:
+            raise RuntimeError(
+                f'h5 file not available at `{h5}`, '
+                f'yet, download disabled.')
 
-            _download(URL, h5)
+        _download(URL, h5)
 
     with h5py.File(h5, "r") as f:
         images = np.array(f['images'])
@@ -100,7 +100,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        'h5',
+        'cache_root',
+        type=str,
+        help='path to folder where 3dshape content '
+             'should be stored'
+    )
+
+    parser.add_argument(
+        '--h5',
         type=str,
         help='path to h5-file with 3dshape content. '
              f'If not specified, it is downloaded if '
@@ -109,14 +116,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        'cache_root',
-        type=str,
-        help='path to folder where 3dshape content '
-             'should be stored'
-    )
-
-    parser.add_argument(
-        'download',
+        '--download',
         action='store_true',
         help='option whether to download `h5` file if not available'
     )

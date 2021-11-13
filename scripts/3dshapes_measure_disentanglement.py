@@ -45,9 +45,9 @@ def main(args: argparse.Namespace):
     train_frame = frame[frame['index'].isin(train_codes.index.tolist())]
     test_frame = frame[frame['index'].isin(test_codes.index.tolist())]
 
-    test_codes = np.stack(test_frame['embeddings'], axis=1)  # (#codes, bs)
+    test_codes = np.stack(test_frame['codes'], axis=1)  # (#codes, bs)
     test_factors = test_frame[factors].values.T  # (#factors, bs)
-    train_codes = np.stack(train_frame['embeddings'], axis=1)  # (#codes, bs)
+    train_codes = np.stack(train_frame['codes'], axis=1)  # (#codes, bs)
     train_factors = train_frame[factors].values.T  # (#factors, bs)
 
     scores_long = {}

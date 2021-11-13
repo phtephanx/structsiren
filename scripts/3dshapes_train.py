@@ -4,6 +4,7 @@ import random
 import shutil
 import typing
 
+import audeer
 import numpy as np
 import pandas as pd
 import torch
@@ -12,7 +13,7 @@ from tqdm import tqdm
 
 from structsiren.models import (
     EfficientNetSirenSAE,
-    StructSirenSAE
+    SirenSAE
 )
 from structsiren.datasets import (
     load_3dshapes,
@@ -29,12 +30,8 @@ checkpoint_frequency_default = 1
 random_seed_default = 12345
 
 
-def safe_path(path):
-    return os.path.abspath(os.path.expanduser(path))
-
-
 def train_for_one_epoch(
-        model: StructSirenSAE,
+        model: SirenSAE,
         train_loader: torch.utils.data.DataLoader,
         optimizer,
         criterion,
@@ -67,8 +64,7 @@ def train_for_one_epoch(
 @torch.no_grad()
 def evaluate_on_loader(
         model: torch.nn.Module,
-        loader: torch.data.utils.DataLoader,
-        *,
+        loader: torch.utils.data.DataLoader,
         device: typing.Union[str, torch.device] = 'cpu'
 ):
     predictions = []
@@ -140,6 +136,7 @@ def evaluate(
                 key: metrics[key](targets, outputs)
                 for key in metrics.keys()
             }
+        del outputs, targets  # save memory
 
     results_df = pd.DataFrame.from_dict(
         {(i, j): results[i][j]
@@ -191,6 +188,11 @@ def evaluate(
     outputs, targets = evaluate_on_loader(model, test_loader, device)
     test_results = {key: metrics[key](targets, outputs)
                     for key in metrics.keys()}
+
+    torch.save(outputs, os.path.join(best_folder, 'outputs_test.pt'))
+    torch.save(targets, os.path.join(best_folder, 'targets_test.pt'))
+    del outputs, targets  # save memory
+
     test_results = pd.DataFrame(test_results, index=[f'epoch {best_epoch}'])
     print('\nTest results are:')
     print(test_results)
@@ -198,19 +200,16 @@ def evaluate(
         os.path.join(output_folder, 'test_results.csv'),
         index=False
     )
-
-    torch.save(outputs, os.path.join(best_folder, 'outputs_test.pt'))
-    torch.save(targets, os.path.join(best_folder, 'targets_test.pt'))
     return best_folder
 
 
 def main(args: argparse.Namespace):
 
-    cache_root = safe_path(args.cache_root)
-    output_folder = safe_path(args.output_folder)
+    cache_root = audeer.safe_path(args.cache_root)
+    output_folder = audeer.safe_path(args.output_folder)
 
     if not os.path.exists(output_folder):
-        os.mkdir(output_folder)
+        audeer.mkdir(output_folder)
 
     seed = args.random_seed
 
@@ -225,17 +224,17 @@ def main(args: argparse.Namespace):
     args.w_dim = 64
     args.num_channels = 3
 
-    model = EfficientNetSirenSAE(
+    model = EfficientNetSirenSAE.build(
         h_dim=args.h_dim,
         w_dim=args.w_dim,
         num_channels=args.num_channels,
-        num_factors=6,
-        dim_per_factor=2,
+        num_codes=6,
+        size_per_code=2,
         encoder_hidden_dims=[64],
         siren_hidden_dim=128,
         sigmoid=True,
         name='efficientnet-b0',
-        pretrained=True
+        pretrained_encoder=True
     )
 
     torch.save(model, os.path.join(output_folder, 'model.pth.tar'))
@@ -246,7 +245,7 @@ def main(args: argparse.Namespace):
     )
 
     if args.checkpoint:
-        ckpt_file = os.path.join(safe_path(args.checkpoint), 'ckpt.pth.tar')
+        ckpt_file = os.path.join(audeer.safe_path(args.checkpoint), 'ckpt.pth.tar')
         ckpt = torch.load(ckpt_file, map_location='cpu')
         model.load_state_dict(ckpt['model_state_dict'])
         optimizer.load_state_dict(ckpt['optimizer_state_dict'])
@@ -292,7 +291,7 @@ def main(args: argparse.Namespace):
         epoch_folder = os.path.join(output_folder, f'Epoch_{epoch}')
 
         if epoch % args.checkpoint_frequency == 0:
-            os.mkdir(epoch_folder)
+            audeer.mkdir(epoch_folder)
 
         if os.path.exists(os.path.join(epoch_folder, 'ckpt.pth.tar')):
             continue
@@ -391,11 +390,6 @@ if __name__ == '__main__':
         default=checkpoint_frequency_default,
         help='Frequency in epochs to save model and optimizer state. '
              f'Default: {checkpoint_frequency_default}'
-    )
-
-    parser.add_argument(
-        '--plot-img',
-        action='store_true'
     )
 
     main(parser.parse_args())

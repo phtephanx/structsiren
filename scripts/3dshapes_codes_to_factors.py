@@ -14,7 +14,7 @@ from structsiren.datasets import (
     Reconstruction,
     load_3dshapes
 )
-import structsiren.datasets.shapes3d
+from structsiren.datasets import shapes3d
 
 
 SHAPES3D_COLORS = [
@@ -26,7 +26,7 @@ SHAPES3D_COLORS = [
 
 X = 'x'
 Y = 'y'
-DIM = 'dim'
+CODE = 'code'
 
 
 def main(args: argparse.Namespace):
@@ -75,18 +75,18 @@ def main(args: argparse.Namespace):
 
     print(frame)
     print(factors)
-    print(DIM)
+    print(CODE)
 
     frame = pd.wide_to_long(
         frame,
         stubnames=[X, Y],
         i=factors,
-        j=DIM
+        j=CODE
     ).reset_index()
 
     frame = pd.melt(
         frame,
-        id_vars=[X, Y, DIM],
+        id_vars=[X, Y, CODE],
         value_vars=factors,
         var_name='factor',
         value_name='value'
@@ -98,7 +98,7 @@ def main(args: argparse.Namespace):
         y=Y,
         hue='value',
         row='factor',
-        col=DIM,
+        col=CODE,
         palette=palette,
         facet_kws={'sharey': False, 'sharex': False}
     )
@@ -123,7 +123,10 @@ if __name__ == '__main__':
         type=int,
         help='number of codes used to represent latent factors. '
              'The number of dimensions per code needs to be `2` '
-             'in order to plot the latent space in 2D'
+             'in order to plot the latent space in 2D. '
+             'For e.g. a 12-dimensional code book with size per '
+             'code vector of `2`, `num_codes` should be `6`',
+        default=6
     )
 
     main(parser.parse_args())

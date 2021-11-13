@@ -57,7 +57,7 @@ class EfficientNetSirenSAE(SirenSAE):
             encoder_hidden_dims: int = 1024,
             sigmoid: bool = True,
             name: str = 'efficientnet-b0',
-            is_pretrained: bool = False,
+            pretrained_encoder: bool = False,
             siren_hidden_dim: int = 128,
             first_omega_0: float = 30,
             hidden_omega_0: float = 30
@@ -67,7 +67,7 @@ class EfficientNetSirenSAE(SirenSAE):
             size_per_code=size_per_code,
             hidden_dims=encoder_hidden_dims,
             name=name,
-            is_pretrained=is_pretrained
+            pretrained=pretrained_encoder
         )
         decoder = StructSirenDecoder(
             num_codes=num_codes,

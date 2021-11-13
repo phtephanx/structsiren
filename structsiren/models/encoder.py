@@ -13,10 +13,10 @@ class EfficientNetEncoder(torch.nn.Module):
             *,
             hidden_dims: typing.Union[int, typing.List] = [],
             name: str = 'efficientnet-b0',
-            is_pretrained: bool = True
+            pretrained: bool = True
     ):
         super().__init__()
-        if is_pretrained:
+        if pretrained:
             self.efficientnet = EfficientNet.from_pretrained(name)
         else:
             self.efficientnet = EfficientNet.from_name(name)
